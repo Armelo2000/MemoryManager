@@ -10,6 +10,7 @@
 
 #include "common.h"
 
+
 class Memory{
 private:
 	//jeder control block hat 8 Bytes Größe. 4B für Start
@@ -24,23 +25,34 @@ public:
 
 	class Block{
 	public:
-		uint32_t startAddress;
-		uint32_t size;
-		bool isFree;
-		Block *prev;
-		Block *next;
+		uint32_t m_startAddress;
+		uint32_t m_size;
+		bool m_isFree;
+		Block *m_prev;
+		Block *m_next;
 
+		Block(uint32_t startaddress, uint32_t size);
+		Block(uint32_t startaddress, uint32_t size, Block* prev, Block* next);
+
+		~Block();
 	};
 
+	Memory();
+
 private:
-	Block* m_block;
+	Block* m_head;
+	Block* m_tail;
+	uint32_t m_blockCount;
 
+	void addBlockToHead(uint32_t address, uint32_t size);
+	void addBlockToTail(uint32_t address, uint32_t size);
 
+	void addBlockBetweenHeadAndTail(uint32_t address, uint32_t size);
 public:
 	Block* getFirstBlock();
 	Block* getLastBlock();
 
-	void addBlock();
+	void addBlock(uint32_t address, uint32_t size);
 
 
 };
