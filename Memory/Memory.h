@@ -37,22 +37,30 @@ public:
 		~Block();
 	};
 
-	Memory();
+	Memory(uint32_t size);
 
 private:
 	Block* m_head;
 	Block* m_tail;
 	uint32_t m_blockCount;
 
+	uint32_t m_usedSpace;
+	uint32_t m_freeSpace;
+
+	uint32_t m_addressPointer;
+	uint32_t m_size;
+
 	void addBlockToHead(uint32_t address, uint32_t size);
 	void addBlockToTail(uint32_t address, uint32_t size);
-
+	void addBlock(uint32_t address, uint32_t size);
 	void addBlockBetweenHeadAndTail(uint32_t address, uint32_t size);
 public:
 	Block* getFirstBlock();
 	Block* getLastBlock();
 
-	void addBlock(uint32_t address, uint32_t size);
+
+
+	int addBlockMemory(uint32_t size);
 
 
 };

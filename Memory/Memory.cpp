@@ -7,7 +7,9 @@
 
 #include "Memory.h"
 
-Memory::Memory(): m_head(nullptr), m_tail(nullptr), m_blockCount(0){
+Memory::Memory(uint32_t size): m_head(nullptr), m_tail(nullptr), m_blockCount(0),
+				  m_usedSpace(0), m_freeSpace(size), m_size(size),
+				  m_addressPointer(0){
 
 }
 
@@ -91,5 +93,25 @@ void Memory::addBlockBetweenHeadAndTail(uint32_t address, uint32_t size){
 			}
 			entry = entry->m_next;
 		}
+
+}
+
+int Memory::addBlockMemory(uint32_t size){
+
+	if((BLOCK_CONTROL_SIZE + size) <= this->m_freeSpace){
+		addBlock(m_addressPointer, (BLOCK_CONTROL_SIZE + size));
+		this->m_freeSpace -= (BLOCK_CONTROL_SIZE + size);
+		m_addressPointer = (BLOCK_CONTROL_SIZE + size);
+		m_usedSpace = (BLOCK_CONTROL_SIZE + size);
+
+		cout<<"The Memory of "<<BLOCK_CONTROL_SIZE + size <<
+				" Bytes has been added"<<endl;
+
+		return 1;
+	}
+
+	cout<<"The Memory of "<<BLOCK_CONTROL_SIZE + size <<
+					" Bytes could not been added. Not enough space"<<endl;
+	return 0;
 
 }

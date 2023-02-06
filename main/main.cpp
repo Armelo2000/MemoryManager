@@ -13,13 +13,13 @@ using namespace std;
 
 int main(){
 
-	Memory* memory = new Memory();
+	Memory* memory = new Memory(316);
 
-	memory->addBlock(100, 10);
-	memory->addBlock(200, 14);
-	memory->addBlock(12, 5);
-	memory->addBlock(8, 16);
-	memory->addBlock(10, 45);
+	memory->addBlockMemory(100);
+	memory->addBlockMemory(200);
+	memory->addBlockMemory(12);
+	memory->addBlockMemory(8);
+	memory->addBlockMemory(10);
 
 	cout<<"MemoryManagement"<<endl;
 	return 0;
